@@ -1,0 +1,11 @@
+{
+  "name": "tetris",
+
+  "description": "A binary variant of the classic Tetris game.",
+
+  "keywords": [
+    "tetris",
+    "game",
+    "binary"
+  ]
+}
