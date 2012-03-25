@@ -3,7 +3,6 @@
  */
 
 var express = require('express')
-  , stylus = require('stylus')
   , nib = require('nib')
   , sio = require('socket.io');
 
@@ -17,26 +16,14 @@ var app = express.createServer();
  * App configuration.
  */
 
-app.configure(function () {
-  app.use(stylus.middleware({ src: __dirname + '/public', compile: compile }));
-  app.use(express.static(__dirname + '/public'));
-  app.set('views', __dirname);
-  app.set('view engine', 'jade');
-
-  function compile (str, path) {
-    return stylus(str)
-      .set('filename', path)
-      .use(nib());
-  };
-});
-
-/**
- * App routes.
- */
-
 app.get('/', function (req, res) {
-  res.render('index', { layout: false });
+  res.sendfile(__dirname + '/index.html');
 });
+
+app.get('/client.js', function (req, res) {
+  res.sendfile(__dirname + '/client.js');
+});
+
 
 /**
  * App listen.

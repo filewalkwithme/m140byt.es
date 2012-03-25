@@ -1,10 +1,3 @@
-doctype 5
-html
-  head
-    link(href='/stylesheets/style.css', rel='stylesheet')
-    script(src='http://code.jquery.com/jquery-1.6.1.min.js')
-    script(src='/socket.io/socket.io.js')
-    script
       // socket.io specific code
       var socket = io.connect();
 
@@ -66,18 +59,3 @@ html
           $('#message').val('').focus();
         };
       });
-  body
-    #chat
-      #nickname
-        form.wrap#set-nickname
-          p Please type in your nickname and press enter.
-          input#nick
-          p#nickname-err Nickname already in use
-      #connecting
-        .wrap Connecting to socket.io server
-      #messages
-        #nicknames
-        #lines
-      form#send-message
-        input#message
-        button Send
