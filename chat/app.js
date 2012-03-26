@@ -39,7 +39,7 @@ app.listen(3000, function () {
  */
 
 var io = sio.listen(app)
-  , nicknames = {};
+  , nicknames = {}, rooms = {}, idroom = 0;
 
 io.sockets.on('connection', function (socket) {
   socket.on('user message', function (msg) {
@@ -52,6 +52,21 @@ io.sockets.on('connection', function (socket) {
     } else {
       fn(false);
       nicknames[nick] = socket.nickname = nick;
+	  
+	  /*Room management*/
+	  if (!rooms[idroom]) { 
+		rooms[idroom] = {}
+	  }
+
+	  if (rooms[idroom][0]){
+	  	rooms[idroom][1] = nicknames[nick];
+      	io.sockets.emit('room-ready', rooms[idroom][0] + ' x ' + rooms[idroom][1]);
+	  	idroom++;
+	  } else {
+	  	rooms[idroom][0] = nicknames[nick];
+	  }
+	  /*end room management*/
+
       socket.broadcast.emit('announcement', nick + ' connected');
       io.sockets.emit('nicknames', nicknames);
     }

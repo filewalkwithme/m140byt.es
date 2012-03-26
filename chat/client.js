@@ -5,6 +5,10 @@
         $('#lines').append($('<p>').append($('<b>').text(from), msg));
       }
 
+      socket.on('room-ready', function (msg) {
+        $('#room').append($('<p>').append($('<em>').text(msg)));
+      });
+
       // dom manipulation
       $(function () {
         $('#set-nickname').submit(function (ev) {
@@ -18,3 +22,5 @@
           return false;
         });
       });
+
+
