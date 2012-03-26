@@ -59,11 +59,13 @@ io.sockets.on('connection', function (socket) {
 	  }
 
 	  if (rooms[idroom][0]){
-	  	rooms[idroom][1] = nicknames[nick];
-      	io.sockets.emit('room-ready', rooms[idroom][0] + ' x ' + rooms[idroom][1]);
+	  	rooms[idroom][1] = socket;
+      	rooms[idroom][0].emit('room-ready', rooms[idroom][0].nickname + ' : ' + rooms[idroom][1].nickname);
+      	rooms[idroom][1].emit('room-ready', rooms[idroom][0].nickname + ' : ' + rooms[idroom][1].nickname);
 	  	idroom++;
 	  } else {
-	  	rooms[idroom][0] = nicknames[nick];
+	  	rooms[idroom][0] = socket;
+		rooms[idroom][0].emit('room-ready', "User " + rooms[idroom][0].nickname + " started a new room: (id #" + idroom + "). Waiting adversary...");
 	  }
 	  /*end room management*/
 
